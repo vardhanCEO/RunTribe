@@ -912,7 +912,7 @@ img { max-width: 100%; display: block; }
   .steps .step, .steps .step-reverse { grid-template-columns: auto 1fr; }
   .step-visual { display: none; }
   .bases-split { grid-template-columns: 1fr; }
-  .bases-phone { display: none; }
+  .bases-phone { display: flex; justify-content: center; margin-top: 16px; }
 }
 
 @media (max-width: 768px) {
@@ -920,7 +920,18 @@ img { max-width: 100%; display: block; }
   .hero-sub { margin: 0 auto 36px; }
   .hero-cta { justify-content: center; }
   .hero-stats { justify-content: center; }
-  .hero-visual { display: none; }
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    height: 510px;
+    overflow: visible;
+  }
+  .hero-visual .iphone-outer {
+    transform: scale(0.85);
+    transform-origin: top center;
+    flex-shrink: 0;
+  }
   .nav-links { display: none; }
   .hamburger { display: flex; }
   .features-grid { grid-template-columns: 1fr; }
@@ -940,4 +951,14 @@ img { max-width: 100%; display: block; }
   .hero-stats { flex-direction: column; gap: 16px; }
   .stat-divider { display: none; }
   .stat { padding: 0; }
+  .hero-visual {
+    height: 420px;
+  }
+  .hero-visual .iphone-outer {
+    transform: scale(0.7);
+  }
+  .bases-phone .iphone-outer {
+    transform: scale(0.88);
+    transform-origin: top center;
+  }
 }

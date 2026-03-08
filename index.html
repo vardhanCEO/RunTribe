@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RunTribe — Claim Your City</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9 1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></span>
+        <span class="logo-text">RunTribe</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#gameplay">How It Works</a></li>
+        <li><a href="#social">Social</a></li>
+        <li><a href="#leaderboard">Leaderboard</a></li>
+        <li><a href="#download" class="btn-nav">Download</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#features">Features</a>
+      <a href="#gameplay">How It Works</a>
+      <a href="#social">Social</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#download">Download</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="grid-overlay"></div>
+      <div class="glow glow-1"></div>
+      <div class="glow glow-2"></div>
+      <div class="glow glow-3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="badge">Now Available on iOS & Android</div>
+      <h1 class="hero-title">
+        <span class="gradient-text">Claim Your City.</span><br />
+        Run to Dominate.
+      </h1>
+      <p class="hero-sub">
+        Turn every run into a battle. Claim grid cells, capture rivals' territory, build bases, and prove your tribe owns the streets.
+      </p>
+      <div class="hero-cta">
+        <a href="#download" class="btn-primary">Get the App</a>
+        <a href="#gameplay" class="btn-ghost">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">50m</span>
+          <span class="stat-label">Grid Cell Size</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">Live</span>
+          <span class="stat-label">GPS Tracking</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-num">3D</span>
+          <span class="stat-label">Base Building</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="iphone-outer">
+        <!-- Physical buttons -->
+        <div class="iphone-vol-up"></div>
+        <div class="iphone-vol-down"></div>
+        <div class="iphone-power"></div>
+
+        <div class="iphone-screen">
+          <!-- Status bar -->
+          <div class="iphone-status-bar">
+            <span class="iphone-time">9:41</span>
+            <div class="iphone-status-right">
+              <svg class="si" viewBox="0 0 17 12" fill="white"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.3"/></svg>
+              <svg class="si" viewBox="0 0 16 11" fill="white"><path d="M8 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/><path d="M3.3 5.3a6.5 6.5 0 0 1 9.4 0" stroke="white" stroke-width="1.3" fill="none" opacity="0.5"/><path d="M5.2 7.2a3.9 3.9 0 0 1 5.6 0" stroke="white" stroke-width="1.3" fill="none" opacity="0.85"/></svg>
+              <svg class="si batt" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23 4v4a2 2 0 0 0 0-4z" fill="white" opacity="0.4"/></svg>
+            </div>
+          </div>
+
+          <!-- Dynamic Island -->
+          <div class="dynamic-island"><div class="di-dot"></div></div>
+
+          <!-- Map canvas -->
+          <canvas id="mapCanvas"></canvas>
+
+          <!-- App top bar (floats over map) -->
+          <div class="app-bar">
+            <span class="app-bar-name">&#9650; RunTribe</span>
+            <div class="app-bar-stop">&#9632; Stop</div>
+          </div>
+
+          <!-- Run HUD -->
+          <div class="run-hud">
+            <div class="hud-stat"><span class="hud-val" id="hudDist">0.00</span><span class="hud-lbl">km</span></div>
+            <div class="hud-div"></div>
+            <div class="hud-stat"><span class="hud-val" id="hudPace">5:24</span><span class="hud-lbl">pace</span></div>
+            <div class="hud-div"></div>
+            <div class="hud-stat"><span class="hud-val" id="hudTime">00:00</span><span class="hud-lbl">time</span></div>
+            <div class="hud-div"></div>
+            <div class="hud-stat"><span class="hud-val" id="hudCells">0</span><span class="hud-lbl">cells</span></div>
+          </div>
+        </div>
+
+        <div class="iphone-glow"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Core Features</span>
+        <h2>Everything a Competitive Runner Needs</h2>
+        <p>RunTribe combines real GPS running with strategy, social play, and base building.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card" data-delay="0">
+          <div class="feature-icon" style="--c:#e84393">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          </div>
+          <h3>Territory Claiming</h3>
+          <p>Every step you take claims ~50m × 50m grid cells on the real map. Your color paints the city.</p>
+        </div>
+        <div class="feature-card" data-delay="100">
+          <div class="feature-icon" style="--c:#f97316">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <h3>Capture Rivals</h3>
+          <p>Run through enemy cells to take them over. Every rival territory you claim is a victory for your tribe.</p>
+        </div>
+        <div class="feature-card" data-delay="200">
+          <div class="feature-icon" style="--c:#8b5cf6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <h3>Live GPS Tracking</h3>
+          <p>Real-time distance, pace, elapsed time, and cells claimed — all displayed while you run.</p>
+        </div>
+        <div class="feature-card" data-delay="300">
+          <div class="feature-icon" style="--c:#06b6d4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>3D Base Building</h3>
+          <p>Construct your headquarters, barracks, watchtower and more. 8 building types, 5 upgrade levels each.</p>
+        </div>
+        <div class="feature-card" data-delay="400">
+          <div class="feature-icon" style="--c:#10b981">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Group Runs</h3>
+          <p>Team up with friends and run together to claim territory collaboratively under your group's flag.</p>
+        </div>
+        <div class="feature-card" data-delay="500">
+          <div class="feature-icon" style="--c:#f59e0b">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <h3>Closed-Loop Capture</h3>
+          <p>Complete a loop while running to instantly claim everything enclosed inside your path.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section gameplay" id="gameplay">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">How It Works</span>
+        <h2>Run. Claim. Dominate.</h2>
+        <p>Three simple steps to own your neighborhood.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>Start Your Run</h3>
+            <p>Hit the run button on the map screen. Your GPS activates and every cell you pass through gets painted in your color instantly.</p>
+          </div>
+          <div class="step-visual">
+            <div class="step-anim step-anim-1">
+              <div class="pulse-ring"></div>
+              <div class="pulse-dot"></div>
+            </div>
+          </div>
+        </div>
+        <div class="step step-reverse">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>Capture Enemy Territory</h3>
+            <p>Spot rival-colored cells on the map and run through them. Your color overwrites theirs. Build bigger territory than any runner in your city.</p>
+          </div>
+          <div class="step-visual">
+            <div class="step-anim step-anim-2">
+              <div class="mini-grid">
+                <div class="mg-cell c1"></div>
+                <div class="mg-cell c2"></div>
+                <div class="mg-cell c3"></div>
+                <div class="mg-cell c4"></div>
+                <div class="mg-cell c5"></div>
+                <div class="mg-cell c6"></div>
+                <div class="mg-cell c7"></div>
+                <div class="mg-cell c8"></div>
+                <div class="mg-cell c9"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>Build Your Base</h3>
+            <p>After claiming enough territory, build your headquarters at your most-run location. Upgrade 8 types of buildings across 5 levels to gain strategic advantages.</p>
+          </div>
+          <div class="step-visual">
+            <div class="step-anim step-anim-3">
+              <div class="base-tower">
+                <div class="tower-top"></div>
+                <div class="tower-mid"></div>
+                <div class="tower-base-block"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL -->
+  <section class="section social" id="social">
+    <div class="container">
+      <div class="social-split">
+        <div class="social-text">
+          <span class="section-badge">Social</span>
+          <h2>Run Together. Rule Together.</h2>
+          <p>RunTribe is more fun with your squad. Track friends in real time, form tribes, and coordinate your territory strategy.</p>
+          <ul class="social-list">
+            <li>
+              <div class="social-check">&#10003;</div>
+              <div>
+                <strong>Live Friend Locations</strong>
+                <span>See exactly where your friends are running right now on the map.</span>
+              </div>
+            </li>
+            <li>
+              <div class="social-check">&#10003;</div>
+              <div>
+                <strong>Proximity Alerts</strong>
+                <span>Get notified when a friend is within 500m — plan meetups mid-run.</span>
+              </div>
+            </li>
+            <li>
+              <div class="social-check">&#10003;</div>
+              <div>
+                <strong>Group Runs</strong>
+                <span>Form a tribe, claim territory together, and build a shared empire.</span>
+              </div>
+            </li>
+            <li>
+              <div class="social-check">&#10003;</div>
+              <div>
+                <strong>View Friend Bases</strong>
+                <span>Visit and explore your friends' 3D bases from the social screen.</span>
+              </div>
+            </li>
+            <li>
+              <div class="social-check">&#10003;</div>
+              <div>
+                <strong>Collaborative Routes</strong>
+                <span>Propose a group run route — your team can accept and run it together.</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="social-visual">
+          <div class="friend-cards">
+            <div class="friend-card fc1">
+              <div class="friend-avatar" style="background:#e84393">A</div>
+              <div class="friend-info">
+                <span class="friend-name">Alex</span>
+                <span class="friend-status live">&#9679; Running Now</span>
+              </div>
+              <div class="friend-cells">+12 cells</div>
+            </div>
+            <div class="friend-card fc2">
+              <div class="friend-avatar" style="background:#8b5cf6">S</div>
+              <div class="friend-info">
+                <span class="friend-name">Sam</span>
+                <span class="friend-status live">&#9679; Running Now</span>
+              </div>
+              <div class="friend-cells">+7 cells</div>
+            </div>
+            <div class="friend-card fc3">
+              <div class="friend-avatar" style="background:#06b6d4">M</div>
+              <div class="friend-info">
+                <span class="friend-name">Morgan</span>
+                <span class="friend-status offline">&#9679; 2h ago</span>
+              </div>
+              <div class="friend-cells">284 cells</div>
+            </div>
+            <div class="proximity-alert">
+              <span class="alert-icon">&#9888;</span>
+              <span>Alex is 320m away!</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BASE BUILDING -->
+  <section class="section bases" id="bases">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Base Building</span>
+        <h2>Build Your Empire in 3D</h2>
+        <p>Construct and upgrade 8 unique building types at your territory's heart. Rendered in real 3D.</p>
+      </div>
+
+      <div class="bases-split">
+        <!-- Left: building cards + upgrade -->
+        <div class="bases-content">
+          <div class="buildings-grid">
+            <div class="building-card">
+              <div class="building-icon hq">HQ</div>
+              <h4>Headquarters</h4>
+              <p>Your nerve center. Anchor your territory and command your empire.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon barracks">BR</div>
+              <h4>Barracks</h4>
+              <p>Train your runners. Boost capture speed and territory strength.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon tower">WT</div>
+              <h4>Watchtower</h4>
+              <p>Expand your vision. Monitor rival activity from afar.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon depot">SD</div>
+              <h4>Supply Depot</h4>
+              <p>Stock up. Sustain longer runs and keep territory growing.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon training">TG</div>
+              <h4>Training Ground</h4>
+              <p>Push your limits. Improve running stats and bonuses.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon infirmary">IN</div>
+              <h4>Infirmary</h4>
+              <p>Recover faster. Reduce downtime between your runs.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon workshop">WS</div>
+              <h4>Workshop</h4>
+              <p>Craft upgrades. Enhance all your other buildings.</p>
+            </div>
+            <div class="building-card">
+              <div class="building-icon wall">WL</div>
+              <h4>Wall</h4>
+              <p>Fortify your borders. Make captures harder for rivals.</p>
+            </div>
+          </div>
+          <div class="upgrade-banner">
+            <span class="upgrade-label">5 Upgrade Levels per Building</span>
+            <div class="upgrade-bars">
+              <div class="upgrade-bar" style="--w:20%">Lv 1</div>
+              <div class="upgrade-bar" style="--w:40%">Lv 2</div>
+              <div class="upgrade-bar" style="--w:60%">Lv 3</div>
+              <div class="upgrade-bar" style="--w:80%">Lv 4</div>
+              <div class="upgrade-bar" style="--w:100%">Lv 5</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: iPhone showing 3D isometric base -->
+        <div class="bases-phone">
+          <div class="iphone-outer iphone-sm">
+            <div class="iphone-vol-up"></div>
+            <div class="iphone-vol-down"></div>
+            <div class="iphone-power"></div>
+
+            <div class="iphone-screen">
+              <div class="iphone-status-bar">
+                <span class="iphone-time">9:41</span>
+                <div class="iphone-status-right">
+                  <svg class="si" viewBox="0 0 17 12" fill="white"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="4.5" y="4.5" width="3" height="7.5" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.3"/></svg>
+                  <svg class="si" viewBox="0 0 16 11" fill="white"><path d="M8 8a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3z"/><path d="M3.3 5.3a6.5 6.5 0 0 1 9.4 0" stroke="white" stroke-width="1.3" fill="none" opacity="0.5"/><path d="M5.2 7.2a3.9 3.9 0 0 1 5.6 0" stroke="white" stroke-width="1.3" fill="none" opacity="0.85"/></svg>
+                  <svg class="si batt" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3.5" stroke="white" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="white"/><path d="M23 4v4a2 2 0 0 0 0-4z" fill="white" opacity="0.4"/></svg>
+                </div>
+              </div>
+              <div class="dynamic-island"><div class="di-dot"></div></div>
+
+              <!-- Base app header -->
+              <div class="base-app-bar">
+                <span class="base-app-back">&#8592;</span>
+                <span class="base-app-title">&#9650; My Base</span>
+                <span class="base-app-level">Lv. 3</span>
+              </div>
+
+              <!-- Isometric 3D base canvas -->
+              <canvas id="baseCanvas"></canvas>
+
+              <!-- Base stats HUD -->
+              <div class="base-hud">
+                <div class="base-hud-item"><span class="base-hud-val">6</span><span class="base-hud-lbl">Buildings</span></div>
+                <div class="base-hud-div"></div>
+                <div class="base-hud-item"><span class="base-hud-val">Level 3</span><span class="base-hud-lbl">Base Rank</span></div>
+                <div class="base-hud-div"></div>
+                <div class="base-hud-item"><span class="base-hud-val">+24%</span><span class="base-hud-lbl">Defense</span></div>
+              </div>
+            </div>
+            <div class="iphone-glow base-phone-glow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEADERBOARD -->
+  <section class="section leaderboard" id="leaderboard">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Leaderboard</span>
+        <h2>Who Owns the City?</h2>
+        <p>Global rankings updated in real time. Compete on territory, distance, and captures.</p>
+      </div>
+      <div class="lb-card">
+        <div class="lb-tabs">
+          <button class="lb-tab active" data-tab="territory">Territory</button>
+          <button class="lb-tab" data-tab="distance">Distance</button>
+          <button class="lb-tab" data-tab="captures">Captures</button>
+        </div>
+        <div class="lb-table" id="lbTable">
+          <div class="lb-row lb-header">
+            <span class="lb-rank">#</span>
+            <span class="lb-player">Runner</span>
+            <span class="lb-value">Cells Owned</span>
+          </div>
+          <div class="lb-row lb-top1">
+            <span class="lb-rank">&#127942;</span>
+            <span class="lb-player"><span class="lb-dot" style="background:#e84393"></span>ThunderLegs</span>
+            <span class="lb-value">1,842</span>
+          </div>
+          <div class="lb-row lb-top2">
+            <span class="lb-rank">&#129353;</span>
+            <span class="lb-player"><span class="lb-dot" style="background:#8b5cf6"></span>NightStrider</span>
+            <span class="lb-value">1,541</span>
+          </div>
+          <div class="lb-row lb-top3">
+            <span class="lb-rank">&#129352;</span>
+            <span class="lb-player"><span class="lb-dot" style="background:#f97316"></span>GridRunner</span>
+            <span class="lb-value">1,203</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">4</span>
+            <span class="lb-player"><span class="lb-dot" style="background:#06b6d4"></span>UrbanWolf</span>
+            <span class="lb-value">987</span>
+          </div>
+          <div class="lb-row">
+            <span class="lb-rank">5</span>
+            <span class="lb-player"><span class="lb-dot" style="background:#10b981"></span>TribeQueen</span>
+            <span class="lb-value">841</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOAD -->
+  <section class="section download" id="download">
+    <div class="download-glow"></div>
+    <div class="container">
+      <div class="download-content">
+        <span class="section-badge">Get Started</span>
+        <h2>Download RunTribe Free</h2>
+        <p>Available on iOS and Android. Lace up your shoes — your territory is waiting.</p>
+        <div class="store-buttons">
+          <a href="#" class="store-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            <div>
+              <span class="store-sub">Download on the</span>
+              <span class="store-name">App Store</span>
+            </div>
+          </a>
+          <a href="#" class="store-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.34.19.73.2 1.1.01l11.33-6.37-2.39-2.39-10.04 8.75zm14.72-8.28L5.27 8.85 3.18.24C2.84.05 2.45.06 2.11.25.8 1 .79 2.71.8 3.1v17.8c0 .39.01 2.1 1.31 2.86l12.64-8.28zM20.65 10.3l-2.44-1.37-2.7 2.7 2.7 2.7 2.46-1.38c.7-.4 1.1-.94 1.1-1.32 0-.39-.4-.93-1.12-1.33zm-17.47 9.57c.34.19.73.2 1.1.01l11.33-6.37-2.39-2.39-10.04 8.75z"/></svg>
+            <div>
+              <span class="store-sub">Get it on</span>
+              <span class="store-name">Google Play</span>
+            </div>
+          </a>
+        </div>
+        <p class="download-note">Built with Expo — no account needed to explore. Just run.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="logo">
+            <span class="logo-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9 1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></span>
+            <span class="logo-text">RunTribe</span>
+          </a>
+          <p>Turn every run into a battle for the streets.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h5>Product</h5>
+            <a href="#features">Features</a>
+            <a href="#gameplay">How It Works</a>
+            <a href="#bases">Base Building</a>
+            <a href="#leaderboard">Leaderboard</a>
+          </div>
+          <div class="footer-col">
+            <h5>Social</h5>
+            <a href="#">Friends</a>
+            <a href="#">Groups</a>
+            <a href="#">Live Map</a>
+          </div>
+          <div class="footer-col">
+            <h5>Get the App</h5>
+            <a href="#">App Store</a>
+            <a href="#">Google Play</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 RunTribe. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
